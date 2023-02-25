@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.produit}"></title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<h2 th:text="#{lien.action.possible}"></h2>
+<ul>
+   <li><a th:text="#{label.creation.produit}" th:href="@{/produit/produitCreateForm}"></a></li>
+</ul>
+
+<section class="container">
+    <div class="left-half">
+        <article id="produit-list">
+
+        </article>
+    </div>
+    <div class="right-half">
+        <article id="produit-detail">
+
+        </article>
+    </div>
+</section>
+
+<!--<script th:src="@{/js/script.js}" ></script>-->
+<script th:inline="javascript">
+fetch('/produits/api')
+    .then(res => res.json())
+    .then(res => {
+    var produitListNode = document.getElementById('produit-list');
+    produitListNode.innerHTML = "";
+
+    var table = document.createElement("table");
+    table.setAttribute("border","1");
+    produitListNode.appendChild(table);
+
+    res.forEach(produit => {
+
+    var tr = document.createElement("tr");
+    table.appendChild(tr);
+
+    var td = document.createElement("td");
+    var text = document.createTextNode(`${produit.idProduit}`);
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    td = document.createElement("td");
+    text = document.createTextNode(`${produit.nomProduit}`);
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("td");
+    var text = document.createTextNode(`${produit.categorie.nomCat}`);
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    td = document.createElement("td");
+    var button = document.createElement("button");
+    button.setAttribute("type","button");
+    button.onclick = function() {
+    showDetail(`${produit.idProduit}`);
+    };
+    text = document.createTextNode("Details");
+    button.appendChild(text);
+    td.appendChild(button);
+    tr.appendChild(td);
+    });
+});
+
+
+function showDetail(id){
+    fetch("/produits/api/"+id)
+    .then(res => res.json())
+    .then(res => {
+    var produitDetailNode = document.getElementById('produit-detail');
+    produitDetailNode.innerHTML = "";
+
+
+    var p = document.createElement("p");
+    var text = document.createTextNode(`[[#{label.idProduit}]]: ${res.idProduit}`);
+    p.appendChild(text);
+    produitDetailNode.appendChild(p);
+
+    p = document.createElement("p");
+    text = document.createTextNode(`[[#{label.nomProduit}]]: ${res.nomProduit}`);
+    p.appendChild(text);
+    produitDetailNode.appendChild(p);
+
+    p = document.createElement("p");
+    text = document.createTextNode(`[[#{label.prixProduit}]]: ${res.prixProduit}`);
+    p.appendChild(text);
+    produitDetailNode.appendChild(p);
+
+    p = document.createElement("p");
+    text = document.createTextNode(`[[#{label.dateCreation}]]: ${res.dateCreation}`);
+    p.appendChild(text);
+    produitDetailNode.appendChild(p);
+
+});
+}
+</script>
+</body>
+</html>

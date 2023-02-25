@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="#{titre.modif.produit}"></title>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+    <H1 th:text="#{titre.modif.produit}"></H1>
+    <form th:action="@{/produit/updateProduit}" method="POST" th:object="${produitDto}">
+
+            <label th:text="#{label.idProduit}"/>:<input type="text" disabled th:field="*{idProduit}" /><br>
+            <label th:text="#{label.nomProduit}"/><span class="rouge">*</span>:<input type="text" th:field="*{nomProduit}" />
+            <div th:errorclass="error" th:if="${#fields.hasErrors('nomProduit')}"  th:field="*{nomProduit}" th:errors="*{nomProduit}" /><br>
+            <label th:text="#{label.prixProduit}"/><span class="rouge">*</span>:<input type="text" th:field="*{prixProduit}" th:value="${{prixProduit}}"/>
+            <div th:errorclass="error" th:if="${#fields.hasErrors('prixProduit')}" th:field="*{prixProduit}" th:errors="*{prixProduit}"/><br>
+            <label th:text="#{label.dateCreation}"/><span class="rouge">*</span>:<input type="date" name="dateCreation" th:field="*{dateCreation}" th:value="${{dateCreation}}"/>
+            <div th:errorclass="error" th:if="${#fields.hasErrors('dateCreation')}" th:field="*{dateCreation}" th:errors="*{dateCreation}" /><br>
+            <input type="submit" th:value="#{bouton.ok}"/>
+        </form>
+    </body>
+</html>

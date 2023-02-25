@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="#{titre.creation.produit.cree}"></title>
+    </head>
+    <body>
+        <H1 th:text="#{titre.creation.produit.cree}"></H1>
+        <p><label th:text="#{label.idProduit}"/>:<span th:text="${produitDto.idProduit}"/></p>
+        <p><label th:text="#{label.nomProduit}"/>:<span th:text="${produitDto.nomProduit}"/></p>
+        <p><label th:text="#{label.prixProduit}"/>:<span th:text="${{produitDto.prixProduit}}"/></p>
+        <p><label th:text="#{label.dateCreation}"/>:<span th:text="${#dates.format(produitDto.dateCreation, 'dd/MM/yyyy')}" /></p>
+    </body>
+</html>

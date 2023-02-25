@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.produit}"></title>
+</head>
+<body>
+<h2 th:text="#{lien.action.possible}"></h2>
+<ul>
+   <li><a th:text="#{label.creation.produit}" th:href="@{/produit/produitCreateForm}"></a></li>
+</ul>
+<table border="1">
+    <tr>
+        <th th:text="#{label.idProduit}"></th>
+        <th th:text="#{label.nomProduit}"></th>
+        <th th:text="#{label.prixProduit}"></th>
+        <th th:text="#{label.dateCreation}"></th>
+        <td th:text="#{label.nomCat}"></td>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="produit:${produitsDto}">
+        <td><a th:href="${produit.idProduit}"><span th:text="${produit.idProduit}" /></a></td>
+        <td th:text="${produit.nomProduit}"></td>
+        <td th:text="${{produit.prixProduit}}"></td>
+        <td th:text="${#dates.format(produit.dateCreation, 'dd/MM/yyyy')}"></td>
+        <td th:text="${produit.categorie.nomCat}"></td>
+        <td><a th:href="${produit.idProduit}"><span th:text="#{lien.action.edit}" /></a></td>
+        <td><a th:href="@{/produit/showUpdateProduit/{id}(id=${produit.idProduit})}"><span th:text="#{lien.action.update}" /></a></td>
+        <td><a th:href="@{/produit/delete/{id}(id=${produit.idProduit})}"><span th:text="#{lien.action.delete}" /></a></td>
+    </tr>
+</table>
+
+</body>
+</html>

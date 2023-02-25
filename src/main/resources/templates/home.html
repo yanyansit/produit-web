@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{welcome}"></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="internationalization.js"></script>
+</head>
+<body>
+<!--
+<div th:text="${#locale}"></div><span th:text="${#locale.country}"></span>
+-->
+<!--<h1 th:utext="#{welcome(${session.user.name})}"></h1>-->
+<h1 th:utext="#{welcome('')}"></h1>
+<p style="text-align:right;font-size:90%">
+    <span th:if="${!#strings.equals(#locale, 'en')}"><a th:text="#{lang.eng}" th:href="@{/international?lang=en}"/></span>
+    <span th:if="${!#strings.equals(#locale, 'fr')}"><a th:text="#{lang.fr}" th:href="@{/international?lang=fr}"/></span>
+</p>
+<h2 th:text="#{lien.action.possible}"></h2>
+<ul>
+    <li><a th:text="#{label.home}" th:href="@{/}"></a></li>
+    <li><a th:text="#{label.produit}" th:href="@{/produit/produitHome}" /></li>
+    <li><a th:text="#{label.creation.produit}" th:href="@{/produit/produitCreateForm}" /></li>
+    <li><a th:href="@{/produit/produitHomeApiRest}" />Produits Rest</li>
+</ul>
+
+
+</body>
+</html>
